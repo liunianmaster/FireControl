@@ -1,0 +1,67 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "com.example.zz_xa.firecontrol"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","arm64-v8a","x86_64"
+
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false //true 配合 pro文件进行代码混淆
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    android{
+        lintOptions {
+            checkReleaseBuilds false
+            // Or, if you prefer, you can continue to check for errors in release builds,
+            // but continue the build even when errors are found:
+            abortOnError false
+        }
+
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:design:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+
+    //3D地图
+    //compile 'com.amap.api:3dmap:latest.integration'
+    //2D地图
+    compile 'com.amap.api:map2d:latest.integration'
+    //导航
+   // compile 'com.amap.api:navi-3dmap:latest.integration'
+    //搜索
+    compile 'com.amap.api:search:latest.integration'
+    //定位
+    compile 'com.amap.api:location:latest.integration'
+
+
+    compile project(':easeui')
+
+ //   implementation 'com.android.support:recyclerview-v7:26.1.0'
+    compile 'com.android.support:cardview-v7:26.1.0'
+
+    // Google firebase cloud messaging
+    compile 'com.google.firebase:firebase-messaging:11.4.0'
+}
+
+
+
