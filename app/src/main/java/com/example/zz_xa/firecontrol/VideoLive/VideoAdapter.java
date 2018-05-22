@@ -18,129 +18,155 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Created by ZZ-XA on 2018/5/14.
+ * Created by Adminstrator of wxb on 2018/5/14.
+ * Fix by:
  */
 
 public class VideoAdapter extends BaseAdapter {
-    private List<VideoPicture> mListPictures;
+    private List<VideoPicture> listPictures;
 
     private HashMap<Integer, View> mView;
-    private HashMap<Integer, Integer> mVisibleCheck;
-    private HashMap<Integer, Boolean> mIsCheck;
-    private LayoutInflater mInflater = null;
-    private Context mContext;
-    private TextView mTxtCount;
+    private HashMap<Integer, Integer> visiblecheck;
+    private HashMap<Integer, Boolean> ischeck;
+    private LayoutInflater inflater = null;
+    private Context context;
+    private TextView txtcount;
 
-    private static VideoLive mVideoLive = null;
+    private static VideoLive mVideo = null;
 
-    public static void setMainActivity(VideoLive activity) {
-        mVideoLive = activity;
+    public static void setMainActivity(VideoLive activity){
+        mVideo = activity;
     }
-    public VideoAdapter(List<VideoPicture> listPictures, Context context, TextView mTxtCount){
+
+    public VideoAdapter(List<VideoPicture> listPictures, Context context, TextView txtcount) {
         super();
-        this.mListPictures = listPictures;
-        this.mContext = context;
-        this.mTxtCount = mTxtCount;
+        this.listPictures = listPictures;
+        this.context = context;
+        this.txtcount = txtcount;
 
-        mInflater = (LayoutInflater)mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         mView = new HashMap<Integer, View>();
-        mVisibleCheck = new HashMap<Integer, Integer>();
-        mIsCheck = new HashMap<Integer, Boolean>();
-
-        if (mVideoLive.isMulChoice){
-            for (int i=0; i<mListPictures.size(); i++){
-                mIsCheck.put(i, false);
-                mVisibleCheck.put(i, CheckBox.VISIBLE);
+        visiblecheck = new HashMap<Integer, Integer>();
+        ischeck = new HashMap<Integer, Boolean>();
+        if(mVideo.isMulChoice){
+            for(int i=0; i<listPictures.size(); i++){
+                ischeck.put(i, false);
+                visiblecheck.put(i, CheckBox.VISIBLE);
             }
         } else {
-            for (int i=0; i<mListPictures.size(); i++){
-                mIsCheck.put(i, false);
-                mVisibleCheck.put(i, CheckBox.INVISIBLE);
+            for(int i=0; i<listPictures.size(); i++){
+                ischeck.put(i, false);
+                visiblecheck.put(i, CheckBox.INVISIBLE);
             }
         }
-
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public int getCount() {
+        // TODO Auto-generated method stub
+        return listPictures.size();
+    }
 
+    @Override
+    public Object getItem(int position) {
+        // TODO Auto-generated method stub
+        return listPictures.get(position);
+    }
+
+    @Override
+    public long getItemId(int position) {
+        // TODO Auto-generated method stub
+        return position;
+    }
+
+    @Override
+    public View getView(final int position, View v, ViewGroup arg2) {
+        // TODO Auto-generated method stu
         View view = mView.get(position);
-        if(view == null){
-            view = mInflater.inflate(R.layout.video_adapter, null);
-            ImageView imageView = (ImageView)view.findViewById(R.id.iv_show);
-            TextView textView = (TextView)view.findViewById(R.id.tv_show);
+        if(view == null) {
+            //view = getLayoutInflater().inflate(R.layout.video_item2, null);
+            view = inflater.inflate(R.layout.video_item, null);
+            ImageView imageView = (ImageView) view.findViewById(R.id.iv_show);
+            TextView textView = (TextView) view.findViewById(R.id.tv_show);
 
-            imageView.setImageBitmap(mListPictures.get(position).getBitmao());
-            textView.setText(mListPictures.get(position).getFileName());
+            imageView.setImageBitmap(listPictures.get(position).getBitmap());
+            //textView.setText(listPictures.get(position).getPath());
+            textView.setText(listPictures.get(position).getFileName());
+            ;
+            TextView textViewTime = (TextView) view.findViewById(R.id.time_show);
+            textViewTime.setText("创建时间：" + listPictures.get(position).getFixTime());
 
-            TextView textViewTime = (TextView)view.findViewById(R.id.time_show);
-            textViewTime.setText("创建时间：" + mListPictures.get(position).getFileTime());
-
-            final CheckBox ceb = (CheckBox)view.findViewById(R.id.check);
-            ceb.setChecked(mIsCheck.get(position));
-            ceb.setVisibility(mVisibleCheck.get(position));
-            view.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    mVideoLive.isMulChoice = true;
-                    mVideoLive.selectid.clear();
-                    mVideoLive.layout.setVisibility(View.VISIBLE);
-                    mVideoLive.imageButton.setVisibility(View.GONE);
-                    for(int i=0; i<mListPictures.size(); i++){
-                        //mVideoLive.adapter.mVisibleCheck.put(i, CheckBox.VISIBLE);
-                        mVisibleCheck.put(i, CheckBox.VISIBLE);
-                    }
-                    mVideoLive.adapter = new VideoAdapter(mListPictures,mContext,mTxtCount);
-                    mVideoLive.listView.setAdapter(mVideoLive.adapter);
-                    return true;
-                }
-            });
+            final CheckBox ceb = (CheckBox) view.findViewById(R.id.check);
+            ceb.setChecked(ischeck.get(position));
+            ceb.setVisibility(visiblecheck.get(position));
+            view.setOnLongClickListener(new VideoAdapter.OnLongClick());
 
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(mVideoLive.isMulChoice){
+
+                    if(mVideo.isMulChoice){
                         if(ceb.isChecked()){
                             ceb.setChecked(false);
-                            mVideoLive.selectid.remove(mListPictures.get(position));
-
-                        } else {
+                            mVideo.selectid.remove(listPictures.get(position));
+                        }else {
                             ceb.setChecked(true);
-                            mVideoLive.selectid.add(mListPictures.get(position));
+                            mVideo.selectid.add(listPictures.get(position));
                         }
-                        mTxtCount.setText("共选择了"+mVideoLive.selectid.size()+"项");
+                        txtcount.setText("共选择了"+mVideo.selectid.size()+"项");
                     } else {
-                        playVideo(mListPictures.get(position).getPath());
+                        playVideo(listPictures.get(position).getPath());
+                        //Toast.makeText(getContext(),"click "+listPictures.get(position), Toast.LENGTH_LONG).show();
                     }
                 }
             });
+
             mView.put(position, view);
         }
         return view;
     }
 
+    class OnLongClick implements View.OnLongClickListener{
+        @Override
+        public boolean onLongClick(View v) {
+            mVideo.isMulChoice = true;
+
+            mVideo.selectid.clear();
+            mVideo.layout.setVisibility(View.VISIBLE);
+            mVideo.imageButton.setVisibility(View.GONE);
+            for(int i=0; i<listPictures.size(); i++){
+               // mVideo.adapter.visiblecheck.put(i, CheckBox.VISIBLE);
+                visiblecheck.put(i, CheckBox.VISIBLE);
+            }
+            mVideo.adapter = new VideoAdapter(listPictures,context,txtcount);
+            mVideo.listView.setAdapter(mVideo.adapter);
+            return true;
+        }
+    }
+
+    //调用系统播放器   播放视频
     private void playVideo(String videoPath){
+//					   Intent intent = new Intent(Intent.ACTION_VIEW);
+//					   String strend="";
+//					   if(videoPath.toLowerCase().endsWith(".mp4")){
+//						   strend="mp4";
+//					   }
+//					   else if(videoPath.toLowerCase().endsWith(".3gp")){
+//						   strend="3gp";
+//					   }
+//					   else if(videoPath.toLowerCase().endsWith(".mov")){
+//						   strend="mov";
+//					   }
+//					   else if(videoPath.toLowerCase().endsWith(".avi")){
+//						   strend="avi";
+//					   }
+//					   intent.setDataAndType(Uri.parse(videoPath), "video/*");
+//					   startActivity(intent);
+
         Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
+        intent.setAction(android.content.Intent.ACTION_VIEW);
         File file = new File(videoPath);
         intent.setDataAndType(Uri.fromFile(file), "video/*");
-
-        mContext.startActivity(intent);
-    }
-
-
-    @Override
-    public int getCount() {
-        return mListPictures.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return mListPictures.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+        context.startActivity(intent);
     }
 }

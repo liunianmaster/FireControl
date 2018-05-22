@@ -11,10 +11,15 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
+import com.example.zz_xa.firecontrol.Chat.ChatGroup;
+import com.example.zz_xa.firecontrol.Erwei.ErweiPlan;
+import com.example.zz_xa.firecontrol.Plotting.MarkerPlotting;
 import com.example.zz_xa.firecontrol.VideoLive.VideoLive;
+import com.example.zz_xa.firecontrol.VideoMonitoring.VideoMonitoring;
 
 /**
- * Created by ZZ-XA on 2018/4/11.
+ * Created by ZZ-XA of wxb on 2018/4/11.
+ * Fix by:
  */
 
 public class TabActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {

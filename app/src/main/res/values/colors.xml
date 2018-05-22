@@ -11,6 +11,8 @@
     <color name="transparent">#00000000</color>
     <color name="darkgrey"> #999999</color>
     <color name="tab_grey">#80ffefe2</color>
+    <color name="gary_lite">#c5c5c5</color>
     <color name="gary">#898989</color>
     <color name="card_text_color">#2e2640</color>
+    <color name="black">#000000</color>
 </resources>

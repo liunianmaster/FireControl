@@ -3,45 +3,39 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/anhui">
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="45dp"
-        android:id="@+id/title"
-        android:background="@drawable/title_bar"
+        android:layout_height="48dp"
+        android:background="@drawable/info_back_title"
         android:gravity="center_vertical"  >
-        <Button
-            android:id="@+id/btn_back"
-            android:layout_width="70dp"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:text="返回"
-            android:textSize="14sp"
-            android:textColor="#fff"
-            android:onClick="chat_back2"
-            android:background="@drawable/title_btn_back"
-            />
+        <LinearLayout
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:onClick="chat_back"
+           >
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="9dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/em_mm_title_back" />
+        </LinearLayout>
 
         <TextView
+            android:id="@+id/erwei_title_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="百度一下"
+            android:text="设置"
             android:layout_centerInParent="true"
-            android:textSize="20sp"
-            android:textColor="#ffffff" />
-        <ImageButton
-            android:id="@+id/right_btn"
-            android:layout_width="67dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/title_btn_function"
-            android:background="@drawable/title_btn_right"
-            android:onClick="btnmainright"
-            />
+            android:textSize="23sp"
+            android:textColor="@color/white" />
+
     </RelativeLayout>
+
 
     <WebView
         android:layout_width="match_parent"

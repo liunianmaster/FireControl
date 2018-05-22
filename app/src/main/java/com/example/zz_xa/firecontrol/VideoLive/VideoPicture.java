@@ -3,25 +3,26 @@ package com.example.zz_xa.firecontrol.VideoLive;
 import android.graphics.Bitmap;
 
 /**
- * Created by ZZ-XA on 2018/5/14.
+ * Created by Adminstrator of wxb on 2018/5/10.
+ * Fix by:
  */
 
 public class VideoPicture {
     private Bitmap bitmap;
     private String path;
     private String fileName;
-    private String fileTime;
+    private String fixTime;
 
-    public Bitmap getBitmao(){
+    public Bitmap getBitmap() {
         return bitmap;
     }
-    public void setBitmap(Bitmap bitmap){
+    public void setBitmap(Bitmap bitmap) {
         this.bitmap = bitmap;
     }
-    public String getPath(){
+    public String getPath() {
         return path;
     }
-    public void setPath(String path){
+    public void setPath(String path) {
         this.path = path;
     }
     public String getFileName(){
@@ -30,21 +31,21 @@ public class VideoPicture {
     public void setFileName(String fileName){
         this.fileName = fileName;
     }
-    public String getFileTime(){
-        return fileTime;
+    public String getFixTime(){
+        return fixTime;
     }
-    public void setFileTime(String fileTime){
-        this.fileTime = fileTime;
+    public void setFixTime(String fixTime){
+        this.fixTime = fixTime;
     }
-
-    public VideoPicture(){
+    public VideoPicture(Bitmap bitmap, String path, String fileName, String fixTime) {
         super();
-    }
-    public VideoPicture(Bitmap bitmap, String path, String fileName, String fileTime){
         this.bitmap = bitmap;
         this.path = path;
         this.fileName = fileName;
-        this.fileTime = fileTime;
+        this.fixTime = fixTime;
     }
-
+    public VideoPicture() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 }

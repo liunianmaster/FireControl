@@ -11,75 +11,75 @@
 
     tools:layout_editor_absoluteY="25dp">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="22dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:orientation="vertical">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="22dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical">
+        android:layout_weight="1.0"
+
+        android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1.0"
-            android:orientation="horizontal">
-
-
-            <LinearLayout
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/img_btn_yangan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:orientation="vertical">
-                <ImageButton
-                    android:id="@+id/img_btn_yangan"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_gravity="center"
-                    android:background="@drawable/yangan"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
+                android:background="@drawable/yangan"
 
-                    app:layout_constraintEnd_toStartOf="@+id/img_btn_penlin"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/mark_text_size"
-                    android:text="智能烟感"/>
-            </LinearLayout>
-
-            <LinearLayout
+                app:layout_constraintEnd_toStartOf="@+id/img_btn_penlin"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.0"
-                android:orientation="vertical">
-                <ImageButton
-                    android:id="@+id/img_btn_penlin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_gravity="center"
+                android:layout_gravity="center"
+                android:textSize="@dimen/mark_text_size"
+                android:text="智能烟感"/>
+        </LinearLayout>
 
-                    android:background="@drawable/penlin"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/img_btn_yangan"
-                    app:layout_constraintTop_toTopOf="parent" />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="@dimen/mark_text_size"
-                    android:text="智能喷淋"/>
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.0"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/img_btn_penlin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_gravity="center"
 
+                android:background="@drawable/penlin"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/img_btn_yangan"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="@dimen/mark_text_size"
+                android:text="智能喷淋"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
+
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -130,6 +130,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1.0"
+
         android:orientation="horizontal">
         <LinearLayout
             android:layout_width="wrap_content"
@@ -172,6 +173,6 @@
                 android:text="其他设备"/>
         </LinearLayout>
     </LinearLayout>
-    </LinearLayout>
+</LinearLayout>
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.zz_xa.firecontrol;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
@@ -9,9 +10,11 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 
 /**
- * Created by ZZ-XA on 2018/4/12.
+ * Created by ZZ-XA of wxb on 2018/4/12.
+ * Fix by:
  */
 
 public class WwebView extends AppCompatActivity {
@@ -22,8 +25,16 @@ public class WwebView extends AppCompatActivity {
         //setContentView(R.layout.erwei_plan);
         setContentView(R.layout.w_webview);
         webView = (WebView)findViewById(R.id.wv_webview);
+        init();
         loadWeb();
     }
+    public void init(){
+        Intent intent = getIntent();
+        String title = intent.getStringExtra("title");
+        TextView textView = (TextView)findViewById(R.id.erwei_title_info);
+        textView.setText(title);
+    }
+
     public void loadWeb(){
         String url = "https://www.baidu.com/";
         url = "https://baike.baidu.com/item/%E8%8A%9C%E6%B9%96%E9%93%B6%E6%B3%B0%E5%9F%8E";
@@ -67,16 +78,10 @@ public class WwebView extends AppCompatActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    public void chat_back2(View v){
+    public void chat_back(View v){
         finish();
     }
 
 
-    public void btnmainright(View v){
-        AlertDialog.Builder builder = new AlertDialog.Builder(WwebView.this);
-        builder.setTitle("确认");
-        builder.setMessage("消息框");
-        builder.setPositiveButton("是",null);
-        builder.show();
-    }
+
 }

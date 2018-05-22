@@ -10,6 +10,8 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-feature android:name="android.hardware.camera"></uses-feature>
+    <uses-feature android:name="android.hardware.camera.autofocus"></uses-feature>
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -45,7 +47,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".FirstApplication"
+        android:name=".LoginInit.FirstApplication"
         android:allowBackup="true"
         android:icon="@drawable/em_logo_uidemo"
         android:label="@string/app_name"
@@ -55,7 +57,7 @@
         <meta-data
             android:name="com.amap.api.v2.apikey"
             android:value="b0c6319fdf696369f205f23fa0829ad7" />
-        <activity android:name=".Appstart"
+        <activity android:name=".LoginInit.Appstart"
             android:launchMode="singleTop"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -64,19 +66,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChatActivity"
+        <activity android:name=".Chat.ChatActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize">
         </activity>
         <!-- 定位需要的服务 使用2.0的定位需要加上这个 -->
         <service android:name="com.amap.api.location.APSService"></service>
-        <activity android:name=".LoginActivity"
+        <activity android:name=".LoginInit.LoginActivity"
 
             android:screenOrientation="portrait"></activity>
 
         <activity android:name=".MainActivity"/>
-        <activity android:name=".SettingsActivity"/>
+        <activity android:name=".Setting.SettingsActivity"/>
 
         <activity android:name=".TabActivity"
             android:launchMode="singleTask"
@@ -84,8 +86,14 @@
             android:windowSoftInputMode="adjustPan">
 
         </activity>
-        <activity android:name=".WwebView"></activity>
+        <activity android:name=".VideoLive.VideoLiveActivity"></activity>
+        <activity android:name=".VideoLive.VideoShoot"></activity>
+        <activity android:name=".VideoLive.VideoRecorder"></activity>
+        <activity android:name=".PoiAroundSearchActivity"></activity>
+        <activity android:name=".InputtipsActivity"></activity>
+        <activity android:name=".Setting.SettingAccount"></activity>
 
+        <activity android:name=".WwebView"></activity>
 
         <activity
             android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity"
@@ -122,7 +130,7 @@
 
 
         <receiver
-            android:name=".XiaoMi"
+            android:name=".Push.XiaoMi"
             android:exported="true"
             tools:ignore="ExportedReceiver">
             <intent-filter>
