@@ -329,7 +329,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
 
             } else {
                 String errText = "定位失败," + amapLocation.getErrorCode()+ ": " + amapLocation.getErrorInfo();
-                Log.e("AmapErr",errText);
+               // Log.e("AmapErr",errText);
             }
         }
     }
