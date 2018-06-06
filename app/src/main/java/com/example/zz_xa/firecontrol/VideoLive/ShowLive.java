@@ -32,7 +32,7 @@ public class ShowLive extends AppCompatActivity {
     }
     public void initWeb(){
         String url = "https://www.baidu.com/";
-        url = "https://baike.baidu.com/item/%E8%8A%9C%E6%B9%96%E9%93%B6%E6%B3%B0%E5%9F%8E";
+        //url = "https://baike.baidu.com/item/%E8%8A%9C%E6%B9%96%E9%93%B6%E6%B3%B0%E5%9F%8E";
         url = "http://192.168.1.128/live/agora/Agora_Web_SDK_FULL/index.html";
         url = "http://t1966652k0.imwork.net:25024/Android/lmt/";
         url = "http://t1966652k0.imwork.net:25024/Android/fire/zhibo/";
