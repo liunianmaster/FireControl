@@ -232,7 +232,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_vertical"
                             android:textSize="21sp"
-                            android:text="操作指南"
+                            android:text="相关设置"
                            />
                     </LinearLayout>
                     <View

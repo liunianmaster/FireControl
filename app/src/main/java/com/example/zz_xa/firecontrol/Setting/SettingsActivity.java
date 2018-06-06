@@ -64,10 +64,13 @@ public class SettingsActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void setting_specif(View view){
+        /*
         Intent intent = new Intent();
         intent.setClass(SettingsActivity.this, SettingAccount.class);
         intent.putExtra("title","操作指南");
         startActivity(intent);
+        */
+        startActivity(new Intent(SettingsActivity.this,Setting_Specification.class));
     }
     public void setting_idea(View view){
         Intent intent = new Intent();

@@ -97,6 +97,9 @@ public class VideoLive extends Fragment {
         File file = new File(cur_path);
         File[] files  = null;
         files = file.listFiles();
+        if(files == null){
+            return;
+        }
         listPictures = new ArrayList<VideoPicture>();
         for (int i = 0; i < files.length; i++) {
             VideoPicture picture = new VideoPicture();

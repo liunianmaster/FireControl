@@ -9,7 +9,8 @@
     tools:context="com.example.zz_xa.firecontrol.MainActivity">
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:layout_weight="1">
 
         <com.amap.api.maps2d.MapView
             android:id="@+id/map"
@@ -17,7 +18,6 @@
             android:layout_height="fill_parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:layout_editor_absoluteY="33dp" >
-
 
         </com.amap.api.maps2d.MapView>
 
@@ -260,6 +260,35 @@
                     android:background="@drawable/shape_corner_blue"/>
             </LinearLayout>
         </RelativeLayout>
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/frameLayout_listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:visibility="gone">
+        <ListView
+            android:id="@+id/list_near"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        </ListView>
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="right|top"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
+            <ImageButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:onClick="ListViewGone"
+
+                android:background="@drawable/listview_back"
+                />
+        </LinearLayout>
     </FrameLayout>
 
 

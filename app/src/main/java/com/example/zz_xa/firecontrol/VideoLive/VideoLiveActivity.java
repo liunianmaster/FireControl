@@ -72,6 +72,9 @@ public class VideoLiveActivity extends AppCompatActivity implements SurfaceHolde
 
         setContentView(R.layout.video_live_activity);
 
+        //检查相机，麦克风权限
+        initServer();
+
         mBtnStartStop = (Button) findViewById(R.id.btnStartStop_activity);
         mSurfaceview2 = (SurfaceView) findViewById(R.id.surfaceview2);
 
@@ -122,6 +125,25 @@ public class VideoLiveActivity extends AppCompatActivity implements SurfaceHolde
         // setType必须设置，要不出错.
         holder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 
+    }
+
+    private void initServer(){
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA)){
+                Toast.makeText(this,"shoud open camera",Toast.LENGTH_SHORT).show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.CAMERA
+                        , }, 1);
+            }
+        }
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED){
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this, android.Manifest.permission.RECORD_AUDIO)){
+                Toast.makeText(this,"shoud open camera",Toast.LENGTH_SHORT).show();
+            } else {
+                ActivityCompat.requestPermissions(this, new String[]{ android.Manifest.permission.RECORD_AUDIO
+                        ,}, 1);
+            }
+        }
     }
      private void initShot(){
          if (mRecorder == null) {

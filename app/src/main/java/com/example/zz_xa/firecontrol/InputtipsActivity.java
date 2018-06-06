@@ -45,6 +45,8 @@ public class InputtipsActivity extends Activity implements TextWatcher, Inputtip
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_inputtip);
+
+        city = mMainActivity.getMyCity();
         minputlist = (ListView)findViewById(R.id.inputlist);
         mKeywordText = (AutoCompleteTextView)findViewById(R.id.input_edittext);
         mKeywordText.addTextChangedListener(this);

@@ -27,9 +27,9 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
 
     private ViewPager viewPager;
 
-    private Fragment[] mFragmentArrays = new Fragment[6];
+    private Fragment[] mFragmentArrays = new Fragment[5];
 
-    private String[] mTabTitles = new String[6];
+    private String[] mTabTitles = new String[5];
     private static MainActivity sMainActivity = null;
 
     public static void setMainActivity(MainActivity activity) {
@@ -53,7 +53,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         mTabTitles[2] = "视频直播";
         mTabTitles[3] = "物联标绘";
         mTabTitles[4] = "二维预案";
-        mTabTitles[5] = "视频监控";
+    //    mTabTitles[5] = "视频监控";
         //tabLayout.setTabMode(TabLayout.MODE_FIXED);
         tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         //设置tablayout距离上下左右的距离
@@ -66,7 +66,7 @@ public class TabActivity extends AppCompatActivity implements ViewPager.OnPageCh
         mFragmentArrays[2] = new VideoLive();
         mFragmentArrays[3] = new MarkerPlotting();
         mFragmentArrays[4] = new ErweiPlan();
-        mFragmentArrays[5] = new VideoMonitoring();
+   //     mFragmentArrays[5] = new VideoMonitoring();
         PagerAdapter pagerAdapter = new MyViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(pagerAdapter);
         viewPager.setOnPageChangeListener(this);

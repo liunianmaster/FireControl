@@ -46,7 +46,7 @@ public class PoiAroundSearchActivity extends Activity implements View.OnClickLis
     private PoiResult poiResult; //poi 返回的结果
     private int currentPage = 0;//当前页面，从0开始计数
     private PoiSearch.Query query; // Poi查询条件类
-    private LatLonPoint lp = new LatLonPoint(39.99, 116.47);
+    private LatLonPoint lp = new LatLonPoint(34.310743, 108.966513);
     private Marker locationMarker; //选择的点
     private Marker detailMarker;
     private Marker mlastMarker;
@@ -56,7 +56,7 @@ public class PoiAroundSearchActivity extends Activity implements View.OnClickLis
     private RelativeLayout mPoiDetail;
     private TextView mPoiName, mPoiAddress;
     private String keyWord = "";
-    private String city = "北京市";
+    private String city = "西安市";
     private EditText mSearchText;
 
     @Override
@@ -121,7 +121,9 @@ public class PoiAroundSearchActivity extends Activity implements View.OnClickLis
      */
     protected void doSearchQuery() {
         currentPage = 0;
-        query = new PoiSearch.Query(keyWord, "", city);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+        //query = new PoiSearch.Query(keyWord, "", city);// 第一个参数表示搜索字符串，第二个参数表示poi搜索类型，第三个参数表示poi搜索区域（空字符串代表全国）
+        String serType = "地址";
+        query = new PoiSearch.Query("", serType,city);
         query.setPageSize(20);// 设置每页最多返回多少条poiitem
         query.setPageNum(currentPage);// 设置查第一页
 

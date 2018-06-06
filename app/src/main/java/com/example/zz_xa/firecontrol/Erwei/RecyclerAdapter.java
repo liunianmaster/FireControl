@@ -77,15 +77,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Author
                 }
             });
         }else {
-            holder.mNickNameView.setText("冠军建材（安徽）有限公司");
-            holder.mMottoView.setText("冠军建材集团创建于1972年的台湾，发展至今，总的资产超过3亿");
+            holder.mNickNameView.setText("冠军建材有限公司");
+            holder.mMottoView.setText("冠军建材集团创建于1972年的台湾，发展至今，总的资产...");
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     //startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     Intent intent = new Intent();
                     intent.setClass(v.getContext(), WwebView.class);
-                    intent.putExtra("title","冠军建材（安徽）有限公司");
+                    intent.putExtra("title","冠军建材有限公司");
                     v.getContext().startActivity(intent);
 
                    // v.getContext().startActivity(new Intent(v.getContext(), WwebView.class));

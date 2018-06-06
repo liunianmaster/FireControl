@@ -20,7 +20,7 @@ import com.example.zz_xa.firecontrol.R;
 public class MarkerPlotting extends Fragment {
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
         View v = inflater.inflate(R.layout.marker_plotting, container, false);
@@ -39,66 +39,73 @@ public class MarkerPlotting extends Fragment {
         imgBtnYangan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("温馨提示");
-                builder.setMessage("智能烟感功能，攻城狮在努力开发中！！！");
-                builder.setPositiveButton("行，再等等",null);
-                builder.show();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),MarkerPlotLocation.class);
+                intent.putExtra("plotTitle","智能烟感");
+                startActivity(intent);
+                //startActivity(new Intent(getActivity(), MarkerPlotLocation.class));
             }
         });
         ImageButton imgBtnPenlin = (ImageButton)v.findViewById(R.id.img_btn_penlin);
         imgBtnPenlin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /*
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
                 builder.setTitle("温馨提示");
                 builder.setMessage("智能喷淋功能，攻城狮在努力开发中！！！");
                 builder.setPositiveButton("行，再等等",null);
                 builder.show();
+                */
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),MarkerPlotLocation.class);
+                intent.putExtra("plotTitle","智能喷淋");
+                startActivity(intent);
+                //startActivity(new Intent(getActivity(), MarkerPlotLocation.class));
             }
         });
         ImageButton imgBtnMen = (ImageButton)v.findViewById(R.id.img_btn_men);
         imgBtnMen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("温馨提示");
-                builder.setMessage("智能卷帘门功能，攻城狮在努力开发中！！！");
-                builder.setPositiveButton("行，再等等",null);
-                builder.show();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),MarkerPlotLocation.class);
+                intent.putExtra("plotTitle","智能卷帘门");
+                startActivity(intent);
+                //startActivity(new Intent(getActivity(), MarkerPlotLocation.class));
             }
         });
         ImageButton imgBtnXiaohuo = (ImageButton)v.findViewById(R.id.img_btn_xiaohuo);
         imgBtnXiaohuo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("温馨提示");
-                builder.setMessage("智能消火栓功能，攻城狮在努力开发中！！！");
-                builder.setPositiveButton("行，再等等",null);
-                builder.show();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),MarkerPlotLocation.class);
+                intent.putExtra("plotTitle","智能消火栓");
+                startActivity(intent);
+                //startActivity(new Intent(getActivity(), MarkerPlotLocation.class));
             }
         });
         ImageButton imgBtnZhongkong = (ImageButton)v.findViewById(R.id.img_btn_zhongkong);
         imgBtnZhongkong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("温馨提示");
-                builder.setMessage("中控室功能，攻城狮在努力开发中！！！");
-                builder.setPositiveButton("行，再等等",null);
-                builder.show();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),MarkerPlotLocation.class);
+                intent.putExtra("plotTitle","中控室");
+                startActivity(intent);
+                //startActivity(new Intent(getActivity(), MarkerPlotLocation.class));
             }
         });
         ImageButton imgBtnQita = (ImageButton)v.findViewById(R.id.img_btn_qita);
         imgBtnQita.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                builder.setTitle("温馨提示");
-                builder.setMessage("其他设备功能，攻城狮在努力开发中！！！");
-                builder.setPositiveButton("行，再等等",null);
-                builder.show();
+                Intent intent = new Intent();
+                intent.setClass(getActivity(),MarkerPlotLocation.class);
+                intent.putExtra("plotTitle","其他设备");
+                startActivity(intent);
+                //startActivity(new Intent(getActivity(), MarkerPlotLocation.class));
             }
         });
         return v;

